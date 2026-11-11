@@ -80,8 +80,12 @@ code { font: 400 21px/1 var(--pixel); background: var(--blue-l); padding: 1px 6p
 .palsec { font-family: var(--titol); font-weight: 300; text-transform: lowercase; letter-spacing: -.05em;
   font-size: calc(var(--x) * 1.88); line-height: calc(var(--x) * 1.9); margin: 0; }
 .palsec .px { font-size: calc(var(--x) * 2.92); letter-spacing: -.03em; }
-h1.palsec { --x: clamp(26px, 4.6vw, 40px); }
+h1.palsec { --x: clamp(22px, 3.5vw, 35px); }
 h2.palsec { --x: clamp(18px, 2.7vw, 25px); }
+/* Pal sec en negreta (triat per l’Ivet l’11/11): Neue Montreal Regular amb un contorn del mateix color de 0,024em
+   + NeueBit Bold, que així pesen exactament igual. Les lletres píxel treuen el contorn, perquè s’hereta. */
+.palsec, .pas h3, .treballar h3 { font-weight: 400 !important; letter-spacing: -.026em !important; -webkit-text-stroke: .024em currentColor; }
+.palsec .px, .pas h3 .px, .treballar h3 .px { font-weight: 700 !important; letter-spacing: -.03em !important; -webkit-text-stroke: 0; }
 
 /* Doble marc: la captura dins d’una safata, com una peça muntada */
 .safata { padding: 10px; background: var(--tray); box-shadow: var(--sombra); }
@@ -108,7 +112,7 @@ section { padding: clamp(72px, 10vw, 140px) 0; }
 .cap-seccio p { color: var(--ink2); font: 300 20px/1.5 var(--titol); letter-spacing: -.01em; max-width: 44ch; }
 
 /* Portada */
-.portada { padding-top: clamp(130px, 16vw, 190px); display: grid; grid-template-columns: 1fr 1.08fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
+.portada { padding-top: clamp(130px, 16vw, 190px); display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(36px, 5vw, 64px); align-items: center; }
 .portada .cella { margin-bottom: 30px; }
 .lede { margin-top: 28px; font: 300 clamp(19px, 1.9vw, 22px)/1.45 var(--titol); color: var(--ink2); max-width: 32ch; letter-spacing: -.012em; }
 .accions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
