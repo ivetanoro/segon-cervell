@@ -133,6 +133,12 @@ section { padding: clamp(72px, 10vw, 140px) 0; }
 .base-cap .cella { margin-bottom: 26px; background: #fff; }
 .base-cap p { margin-top: 22px; color: var(--ink2); font: 300 19px/1.5 var(--titol); letter-spacing: -.01em; }
 .base-cap .accions { margin-top: 30px; }
+/* Un truc: passar l’enllaç de la pàgina a la IA */
+.truc { margin-top: 34px; padding: 18px 20px 20px; background: var(--paper); box-shadow: 0 0 0 1px rgba(47, 27, 17, .1); }
+.truc-et { font: 400 21px/1 var(--pixel); color: var(--ink3); }
+.base-cap .truc p { margin-top: 8px; font-size: 17px; color: var(--ink); }
+.truc-enllac { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--hair); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 14px; }
+.truc-enllac span:first-child { font: 400 21px/1.1 var(--pixel); min-width: 0; overflow-wrap: anywhere; user-select: all; }
 .full { padding: 10px; background: rgba(47, 27, 17, .05); box-shadow: 0 0 0 1px rgba(47, 27, 17, .1); }
 .full .nucli { background: var(--paper); padding: clamp(24px, 3.5vw, 44px); box-shadow: 0 0 0 1px rgba(47, 27, 17, .08); }
 .full .capcal { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--hair); }
@@ -335,7 +341,7 @@ footer a:hover { color: var(--ink); }
   <div class="ve">
     <span class="cella">guia pas a pas</span>
     <h1 class="palsec">com he fet el meu<br><span class="px">segon cervell</span></h1>
-    <p class="lede">Capturo des del mòbil i la intel·ligència artificial ho endreça sola cada nit a l’ordinador. Sense saber programar.</p>
+    <p class="lede">El cervell és per tenir idees, no per guardar-les.</p>
     <div class="accions no-imprimir">
       <a class="boto" href="#text-base">copia el text base <span class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5.5 5.5h8v8h-8z"/><path d="M10.5 5.5v-3h-8v8h3"/></svg></span></a>
       <a class="boto clar" href="#pas-a-pas">mira com funciona <span class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 4l8 8M12 5v7H5"/></svg></span></a>
@@ -375,6 +381,11 @@ footer a:hover { color: var(--ink); }
       <div class="accions no-imprimir">
         <button class="boto copia" type="button">copia el text <span class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5.5 5.5h8v8h-8z"/><path d="M10.5 5.5v-3h-8v8h3"/></svg></span></button>
         <a class="boto clar" href="text-base.txt" download="text-base-segon-cervell.txt">en un fitxer <span class="ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 2v10M3.5 7.5 8 12l4.5-4.5M2.5 14.5h11"/></svg></span></a>
+      </div>
+      <div class="truc">
+        <span class="truc-et">un truc</span>
+        <p>Passa-li a la IA l’enllaç d’aquesta mateixa pàgina i demana-li que se l’estudiï i ho repliqui.</p>
+        <div class="truc-enllac"><span>ivetanoro.github.io/segon-cervell</span><button class="boto clar copia-enllac no-imprimir" type="button" style="padding-block:5px">copia l’enllaç <span class="ic" style="width:28px;height:28px"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5.5 5.5h8v8h-8z"/><path d="M10.5 5.5v-3h-8v8h3"/></svg></span></button></div>
       </div>
     </div>
     <div class="full ve">
@@ -1228,7 +1239,7 @@ Comença per les preguntes.
 <!-- ============ FINAL ============ -->
 <section class="wrap final no-imprimir">
   <div class="ve">
-    <span class="cella">ara et toca</span>
+    <span class="cella">ara et toca a tu</span>
     <h2 class="palsec">el teu <span class="px">segon cervell</span></h2>
     <p>Copia el text base, enganxa’l a la teva IA i respon les seves preguntes. La resta, fase a fase.</p>
     <div class="accions" style="margin-top:34px">
@@ -1249,12 +1260,14 @@ Comença per les preguntes.
 if (location.search.includes("pdf")) document.querySelectorAll("img[loading=lazy]").forEach((i) => { i.loading = "eager"; });
 // Copia el text base sencer, tal com s’ha d’enganxar a la IA
 const textPla = document.getElementById("text-pla").content.textContent.trim();
-document.querySelectorAll(".copia").forEach((b) => {
+const enllac = "https://ivetanoro.github.io/segon-cervell/";
+document.querySelectorAll(".copia, .copia-enllac").forEach((b) => {
   const original = b.firstChild.textContent;
+  const aCopiar = b.classList.contains("copia-enllac") ? enllac : textPla;
   b.addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText(textPla); }
+    try { await navigator.clipboard.writeText(aCopiar); }
     catch {
-      const t = document.createElement("textarea"); t.value = textPla; t.style.position = "fixed"; t.style.opacity = "0";
+      const t = document.createElement("textarea"); t.value = aCopiar; t.style.position = "fixed"; t.style.opacity = "0";
       document.body.append(t); t.select(); document.execCommand("copy"); t.remove();
     }
     b.firstChild.textContent = "copiat ";
